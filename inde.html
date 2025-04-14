@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>个人介绍</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <style>
+    body {
+      font-family: "Noto Serif SC", serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(
+        135deg,
+        #1a1a2e 0%,
+        #16213e 50%,
+        #0f3460 100%
+      );
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #fff;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+
+    .main-content {
+      max-width: 800px;
+      margin: 1rem auto;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .section {
+      margin-bottom: 1.5rem;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .section:active {
+      animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    /* 每个section独特的背景色 */
+    .section:nth-child(1) {
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    }
+
+    .section:nth-child(2) {
+      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+    }
+
+    .section:nth-child(3) {
+      background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    }
+
+    .section:nth-child(4) {
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    }
+
+    .section:nth-child(5) {
+      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+    }
+
+    .section:nth-child(6) {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .timeline-container {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .timeline-box {
+      flex: 1;
+      padding: 1.5rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin: 1rem 0;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .highlight {
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .timeline-title {
+      font-size: 1.8rem;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+      padding-bottom: 0.5rem;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    p {
+      line-height: 1.8;
+      font-size: 1.1rem;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .contact-info a {
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+    }
+
+    .contact-info a:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .achievement-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .achievement-list li {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+      position: relative;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .achievement-list li::before {
+      content: "★";
+      position: absolute;
+      left: 0;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 1rem;
+      }
+
+      .profile-image {
+        width: 100px;
+        height: 100px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .main-content {
+        margin: 0.5rem;
+        padding: 1rem;
+      }
+
+      .timeline-container {
+        flex-direction: column;
+      }
+
+      .contact-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+    }
+
+    @keyframes shake {
+      10%,
+      90% {
+        transform: translate3d(-1px, 0, 0);
+      }
+      20%,
+      80% {
+        transform: translate3d(2px, 0, 0);
+      }
+      30%,
+      50%,
+      70% {
+        transform: translate3d(-4px, 0, 0);
+      }
+      40%,
+      60% {
+        transform: translate3d(4px, 0, 0);
+      }
+    }
+  </style>
+
+  <body>
+    <div class="header">
+      <img src="img\ksc.PNG" alt="个人照片" class="profile-image" />
+      <h1>康书诚</h1>
+      <p>天才少年 | 慈善家 | 商业奇才</p>
+    </div>
+
+    <div class="main-content">
+      <div class="section">
+        <h2 class="section-title">传奇人生</h2>
+        <p>
+          15岁以全国第一的成绩考入清华大学少年班，被誉为"百年难遇的天才"。18岁被阿拉伯王室相中，成为王室干儿子，继承亿万财产。然而，我选择将全部财产捐出，创立全球最大的慈善基金会，致力于改变世界。
+        </p>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">辉煌历程</h2>
+        <div class="timeline-container">
+          <div class="timeline-box">
+            <h3 class="timeline-title">少年传奇</h3>
+            <ul class="achievement-list">
+              <li>12岁自学完成大学计算机课程，开发首个商业软件</li>
+              <li>14岁获得国际奥林匹克竞赛金牌，创造历史最年轻记录</li>
+              <li>15岁被清华大学破格录取，成为最年轻的学生</li>
+              <li>16岁创立首个独角兽企业，估值突破10亿美元</li>
+            </ul>
+          </div>
+          <div class="timeline-box">
+            <h3 class="timeline-title">商业帝国</h3>
+            <ul class="achievement-list">
+              <li>18岁被阿拉伯王室相中，成为王室干儿子</li>
+              <li>20岁继承亿万财产，成为全球最年轻亿万富翁</li>
+              <li>22岁创立全球最大慈善基金会，改变千万人命运</li>
+              <li>25岁入选福布斯全球最具影响力人物</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">超凡能力</h2>
+        <p>
+          精通<span class="highlight">量子计算</span>、<span class="highlight"
+            >人工智能</span
+          >、<span class="highlight">区块链</span>等前沿技术，同时掌握<span
+            class="highlight"
+            >8国语言</span
+          >，被誉为"现代达芬奇"。我的大脑运算速度堪比超级计算机，曾创下<span
+            class="highlight"
+            >24小时不眠不休</span
+          >完成1000万行代码的惊人记录。
+        </p>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">改变世界</h2>
+        <ul class="achievement-list">
+          <li>创立全球首个量子计算云平台，颠覆传统计算模式</li>
+          <li>开发革命性AI系统，准确预测全球气候变化</li>
+          <li>设计新型区块链架构，每秒处理百万级交易</li>
+          <li>创建全球最大在线教育平台，惠及10亿学习者</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">慈善事业</h2>
+        <ul class="achievement-list">
+          <li>捐出全部财产，创立全球最大慈善基金会</li>
+          <li>资助1000所希望小学，改变百万儿童命运</li>
+          <li>建立全球医疗援助网络，拯救千万生命</li>
+          <li>创立环保基金，保护地球生态环境</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">详细证明</h2>
+        <div class="contact-info">
+          <a
+            href="https://www.bilibili.com/video/BV1JdtceaEL8/?spm_id_from=333.1391.0.0&vd_source=72202ebdd07550c75c26798483b9f45a"
+            >详细证明视频</a
+          >
+          <a
+            href="https://www.bilibili.com/video/BV1JdtceaEL8/?spm_id_from=333.1391.0.0&vd_source=72202ebdd07550c75c26798483b9f45a"
+            >备用视频</a
+          >
+          <a
+            href="https://www.bilibili.com/video/BV1JdtceaEL8/?spm_id_from=333.1391.0.0&vd_source=72202ebdd07550c75c26798483b9f45a"
+            >视频</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 页面加载完成后执行动画
+      document.addEventListener("DOMContentLoaded", function () {
+        const sections = document.querySelectorAll(".section");
+
+        // 设置观察器
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+              }
+            });
+          },
+          {
+            threshold: 0.1, // 当元素10%进入视口时触发
+          }
+        );
+
+        // 观察所有section
+        sections.forEach((section) => {
+          observer.observe(section);
+        });
+
+        // 立即显示第一个section
+        if (sections.length > 0) {
+          sections[0].classList.add("visible");
+        }
+      });
+    </script>
+  </body>
+</html>
